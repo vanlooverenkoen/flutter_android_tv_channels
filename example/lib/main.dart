@@ -58,6 +58,7 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 channelId2 = await AndroidTvChannels.addChannel(
                     name: 'Recommendations 2', iconResName: 'android');
+
               },
             ),
             MaterialButton(
