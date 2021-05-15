@@ -9,7 +9,8 @@ export 'src/model/bridge/movie_data.dart';
 class AndroidTvChannels {
   static const MethodChannel _channel = MethodChannel('android_tv_channels');
 
-  static Future<int> addChannel({required String name, String? iconResName}) async {
+  static Future<int> addChannel(
+      {required String name, String? iconResName}) async {
     final result = await _channel.invokeMethod<int>('addChannel', {
       'channelName': name,
       'iconResName': iconResName,
@@ -24,12 +25,14 @@ class AndroidTvChannels {
     });
   }
 
-  static Future<int> addMovie({required int channelId, required MovieData movie}) async {
+  static Future<int> addMovie(
+      {required int channelId, required MovieData movie}) async {
     final result = await addMovies(contentId: channelId, movies: [movie]);
     return result.first;
   }
 
-  static Future<List<int>> addMovies({required int contentId, required List<MovieData> movies}) async {
+  static Future<List<int>> addMovies(
+      {required int contentId, required List<MovieData> movies}) async {
     final result = await _channel.invokeMethod<List<dynamic>>('addMovies', {
       'channelId': contentId,
       'movies': MovieDataParser.parseMovies(movies),

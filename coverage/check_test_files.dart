@@ -1,7 +1,8 @@
 import 'dart:io';
 
 void main() {
-  printMessage('Start a check to make sure we have a test file for every sourcecode file');
+  printMessage(
+      'Start a check to make sure we have a test file for every sourcecode file');
   final sourceCodeFolder = Directory('lib');
   final testSourceCodeFolder = Directory('test');
 
@@ -14,7 +15,8 @@ void main() {
   final sourceFiles = getFiles(sourceCodeFolder);
 
   printMessage('');
-  printMessage('Detected ${sourceFiles.length} source files (with excluded folders/files: .g.dart, **dummy_service.dart, lib/vendor/**, lib/util/locale**, lib/webservice/)');
+  printMessage(
+      'Detected ${sourceFiles.length} source files (with excluded folders/files: .g.dart, **dummy_service.dart, lib/vendor/**, lib/util/locale**, lib/webservice/)');
 
   final sourceCodeFiles = sourceFiles.where((file) {
     final path = file.path;
@@ -40,7 +42,8 @@ void main() {
   printMessage('Detected ${sourceCodeFiles.length} source files');
 
   sourceCodeFiles.forEach((file) {
-    final cleanupFile = file.path.replaceFirst('lib/', '').replaceFirst('.dart', '');
+    final cleanupFile =
+        file.path.replaceFirst('lib/', '').replaceFirst('.dart', '');
     final testFile = File('test/${cleanupFile}_test.dart');
     if (!testFile.existsSync()) {
       sourceCodeTodoFiles.add(testFile);
@@ -50,21 +53,27 @@ void main() {
   printMessage('Detected ${sourceCodeTodoFiles.length} untested files');
 
   printMessage('');
-  printMessage('Exclude ${excludedFiles.length} files (no tests needed for these)');
-  sourceCodeTodoFiles.removeWhere((file) => excludedFiles.contains(file.path.replaceFirst('test/', '').replaceFirst('_test.dart', '.dart')));
+  printMessage(
+      'Exclude ${excludedFiles.length} files (no tests needed for these)');
+  sourceCodeTodoFiles.removeWhere((file) => excludedFiles.contains(
+      file.path.replaceFirst('test/', '').replaceFirst('_test.dart', '.dart')));
 
   printMessage('');
-  printMessage('Detected ${sourceCodeTodoFiles.length} untested files after filter');
+  printMessage(
+      'Detected ${sourceCodeTodoFiles.length} untested files after filter');
 
   printMessage('');
   printMessage('There are no test yet created for:');
   printMessage('');
-  (sourceCodeTodoFiles..sort((file1, file2) => file1.path.compareTo(file2.path))).forEach((file) {
+  (sourceCodeTodoFiles
+        ..sort((file1, file2) => file1.path.compareTo(file2.path)))
+      .forEach((file) {
     printMessage('${file.path}');
   });
   printMessage('');
   if (sourceCodeTodoFiles.isNotEmpty) {
-    printMessage('You need to create ${sourceCodeTodoFiles.length} extra test files');
+    printMessage(
+        'You need to create ${sourceCodeTodoFiles.length} extra test files');
     exit(-1);
   }
 }

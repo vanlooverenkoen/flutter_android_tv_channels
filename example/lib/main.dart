@@ -26,8 +26,8 @@ class _MyAppState extends State<MyApp> {
             MaterialButton(
               child: const Text('Create recommendations channel'),
               onPressed: () async {
-                channelId1 = await AndroidTvChannels.addChannel(name: 'Recommendations');
-                print(channelId1);
+                channelId1 =
+                    await AndroidTvChannels.addChannel(name: 'Recommendations');
               },
             ),
             MaterialButton(
@@ -56,8 +56,8 @@ class _MyAppState extends State<MyApp> {
             MaterialButton(
               child: const Text('Create recommendations 2 channel'),
               onPressed: () async {
-                channelId2 = await AndroidTvChannels.addChannel(name: 'Recommendations 2', iconResName: 'android');
-                print(channelId2);
+                channelId2 = await AndroidTvChannels.addChannel(
+                    name: 'Recommendations 2', iconResName: 'android');
               },
             ),
             MaterialButton(

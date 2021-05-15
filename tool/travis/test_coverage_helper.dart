@@ -1,10 +1,11 @@
 import 'dart:io';
 
-const packageName = 'flutter_android_tv_channels';
+const packageName = 'android_tv_channels';
 
 void main() {
   Logger.debug('====');
-  Logger.debug('First create a file with all other files imported so flutter test coverage uses all files');
+  Logger.debug(
+      'First create a file with all other files imported so flutter test coverage uses all files');
   Logger.debug('====');
 
   final imports = Directory('lib').listSync(recursive: true).where((element) {
