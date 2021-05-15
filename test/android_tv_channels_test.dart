@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Noop', (tester) async {});
+  test('Noop', () async {});
 }
