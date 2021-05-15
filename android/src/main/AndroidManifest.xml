@@ -1,3 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="be.vanlooverenkoen.androidtvchannels.flutter_android_tv_channels">
+    package="be.vanlooverenkoen.androidtvchannels.flutter_android_tv_channels">
+
+    <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA" />
 </manifest>

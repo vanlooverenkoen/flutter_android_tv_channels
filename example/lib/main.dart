@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_android_tv_channels/flutter_android_tv_channels.dart';
+import 'package:android_tv_channels/android_tv_channels.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,33 +11,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterAndroidTvChannels.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
+  int? channelId1;
+  int? channelId2;
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +21,69 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: ListView(
+          children: [
+            MaterialButton(
+              child: const Text('Create recommendations channel'),
+              onPressed: () async {
+                channelId1 =
+                    await AndroidTvChannels.addChannel(name: 'Recommendations');
+              },
+            ),
+            MaterialButton(
+              child: const Text('Delete recommendations channel'),
+              onPressed: () async {
+                final channelId = channelId1;
+                if (channelId == null) return;
+                await AndroidTvChannels.deleteChannel(channelId: channelId);
+                channelId1 = null;
+              },
+            ),
+            MaterialButton(
+              child: const Text('Add movie to recommendations channel'),
+              onPressed: () {
+                final channelId = channelId1;
+                if (channelId == null) return;
+                AndroidTvChannels.addMovie(
+                  channelId: channelId,
+                  movie: const MovieData(
+                    title: 'Mission Impossible',
+                    intentUri: '',
+                  ),
+                );
+              },
+            ),
+            MaterialButton(
+              child: const Text('Create recommendations 2 channel'),
+              onPressed: () async {
+                channelId2 = await AndroidTvChannels.addChannel(
+                    name: 'Recommendations 2', iconResName: 'android');
+              },
+            ),
+            MaterialButton(
+              child: const Text('Delete recommendations 2 channel'),
+              onPressed: () async {
+                final channelId = channelId2;
+                if (channelId == null) return;
+                await AndroidTvChannels.deleteChannel(channelId: channelId);
+                channelId2 = null;
+              },
+            ),
+            MaterialButton(
+              child: const Text('Add movie to recommendations 2 channel'),
+              onPressed: () {
+                final channelId = channelId2;
+                if (channelId == null) return;
+                AndroidTvChannels.addMovie(
+                  channelId: channelId,
+                  movie: const MovieData(
+                    title: 'Mission Impossible 2',
+                    intentUri: '',
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

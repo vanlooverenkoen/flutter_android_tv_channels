@@ -1,4 +1,4 @@
-name: flutter_android_tv_channels
+name: android_tv_channels
 description: A new Flutter project.
 version: 0.0.1
 
@@ -19,4 +19,4 @@ flutter:
     platforms:
       android:
         package: be.vanlooverenkoen.androidtvchannels.flutter_android_tv_channels
-        pluginClass: FlutterAndroidTvChannelsPlugin
+        pluginClass: AndroidTvChannelsPlugin
