@@ -4,6 +4,7 @@ import 'package:android_tv_channels/src/model/bridge/movie_data.dart';
 import 'package:android_tv_channels/src/model/parser/movie_data_parser.dart';
 import 'package:flutter/services.dart';
 
+export 'src/model/bridge/aspect_ratio.dart';
 export 'src/model/bridge/movie_data.dart';
 
 class AndroidTvChannels {
