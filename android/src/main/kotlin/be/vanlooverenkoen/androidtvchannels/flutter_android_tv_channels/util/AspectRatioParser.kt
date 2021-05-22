@@ -11,6 +11,7 @@ object AspectRatioParser {
             "ASPECT_RATIO_4_3" -> PreviewProgramColumns.ASPECT_RATIO_4_3
             "ASPECT_RATIO_1_1" -> PreviewProgramColumns.ASPECT_RATIO_1_1
             "ASPECT_RATIO_2_3" -> PreviewProgramColumns.ASPECT_RATIO_2_3
+            "ASPECT_RATIO_MOVIE_POSTER" -> PreviewProgramColumns.ASPECT_RATIO_MOVIE_POSTER
             "UNKNOWN" -> -1
             else -> -1
         }

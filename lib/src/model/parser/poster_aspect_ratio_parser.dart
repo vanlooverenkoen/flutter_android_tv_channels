@@ -16,6 +16,8 @@ class PosterAspectRatioParser {
         return 'ASPECT_RATIO_1_1';
       case PosterAspectRatio.ASPECT_RATIO_2_3:
         return 'ASPECT_RATIO_2_3';
+      case PosterAspectRatio.ASPECT_RATIO_MOVIE_POSTER:
+        return 'ASPECT_RATIO_MOVIE_POSTER';
       case PosterAspectRatio.UNKNOWN:
         return 'UNKNOWN';
     }
