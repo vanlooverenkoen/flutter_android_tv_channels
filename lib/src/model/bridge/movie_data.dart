@@ -1,3 +1,5 @@
+import 'package:android_tv_channels/src/model/bridge/aspect_ratio.dart';
+
 class MovieData {
   final String title;
   final int? durationMillis;
@@ -6,6 +8,7 @@ class MovieData {
   final DateTime? releaseDate;
   final String? genre;
   final String? posterUri;
+  final PosterAspectRatio? posterAspectRatio;
 
   const MovieData({
     required this.title,
@@ -15,5 +18,6 @@ class MovieData {
     this.releaseDate,
     this.genre,
     this.posterUri,
+    this.posterAspectRatio,
   });
 }

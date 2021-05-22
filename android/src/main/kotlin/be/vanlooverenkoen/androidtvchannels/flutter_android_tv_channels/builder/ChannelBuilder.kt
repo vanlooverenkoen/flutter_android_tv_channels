@@ -11,6 +11,7 @@ import androidx.tvprovider.media.tv.ChannelLogoUtils.storeChannelLogo
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
 import be.vanlooverenkoen.androidtvchannels.flutter_android_tv_channels.model.MovieData
+import be.vanlooverenkoen.androidtvchannels.flutter_android_tv_channels.util.AspectRatioParser
 import be.vanlooverenkoen.androidtvchannels.flutter_android_tv_channels.util.ResourceUtil
 
 object ChannelBuilder {
@@ -19,9 +20,9 @@ object ChannelBuilder {
     fun addChannel(context: Context, name: String, iconResName: String?): Long {
         val packageName = context.packageName
         val channel = Channel.Builder().setType(TvContractCompat.Channels.TYPE_PREVIEW)
-                .setDisplayName(name)
-                .setAppLinkIntentUri(Uri.parse("$packageName.androidtvchannels://open_via_launcher"))
-                .build()
+            .setDisplayName(name)
+            .setAppLinkIntentUri(Uri.parse("$packageName.androidtvchannels://open_via_launcher"))
+            .build()
         val channelUri = context.contentResolver.insert(TvContractCompat.Channels.CONTENT_URI, channel.toContentValues()) ?: throw NullPointerException("channelUri is null")
         val channelId = ContentUris.parseId(channelUri)
         TvContractCompat.requestChannelBrowsable(context, channelId)
@@ -39,22 +40,23 @@ object ChannelBuilder {
     }
 
     fun addMovieContent(
-            context: Context,
-            channelId: Long,
-            movieData: MovieData
+        context: Context,
+        channelId: Long,
+        movieData: MovieData
     ): Long {
         val builder = PreviewProgram.Builder()
         builder.setChannelId(channelId)
-                .setType(TvContractCompat.PreviewPrograms.TYPE_MOVIE)
-                .setTitle(movieData.title)
-                .setGenre(movieData.genre)
+            .setType(TvContractCompat.PreviewPrograms.TYPE_MOVIE)
+            .setTitle(movieData.title)
+            .setGenre(movieData.genre)
         movieData.durationMillis?.let { builder.setDurationMillis(it) }
         movieData.releaseDate?.let { builder.setReleaseDate(it) }
         builder.setDescription(movieData.description)
+        movieData.posterAspectRatio?.let { builder.setPosterArtAspectRatio(AspectRatioParser.getAspectRatio(it)) }
         movieData.posterUri?.let { builder.setPosterArtUri(Uri.parse(it)) }
         builder.setIntentUri(Uri.parse(movieData.intentUri))
         val contentId = context.contentResolver.insert(TvContractCompat.PreviewPrograms.CONTENT_URI, builder.build().toContentValues())
-                ?: throw NullPointerException("contentUri is null")
+            ?: throw NullPointerException("contentUri is null")
         return ContentUris.parseId(contentId)
     }
 
